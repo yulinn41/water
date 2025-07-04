@@ -32,7 +32,7 @@
         }
 
         #screen1 {
-            padding-top: 300px;
+            padding-top: 20vh;
             /* 留空間給上方 timeline */
         }
 
@@ -201,7 +201,7 @@
             width: 100%;
             height: 70vh;
             /* 占據畫面底部 50% 高度 */
-            background-color: rgba(65, 39, 39, 0.516);
+            background-color: rgba(65, 39, 39, 0);
             z-index: 1;
             /* 確保在其他元素後面（背景層） */
             overflow: hidden;
@@ -271,13 +271,24 @@
         }
 
         .canvas-toolbar-wrapper {
-            margin: 0;
-            padding: 0;
-            line-height: 0;
-            /* 避免垂直間距產生 */
+            margin: 0 auto;
+            /* ✅ 置中對齊 */
+            flex-direction: column;
+            /* 🟢 預設手機：上下排列 */
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: calc(100vw - 4rem);
+
         }
 
-
+        #myCanvas,
+        .toolbar {
+            width: 100%;
+            box-sizing: border-box;
+        }
 
         #myCanvas {
             border: 1px solid #ccc;
@@ -287,6 +298,21 @@
             /* ✅ 上半圓角讓 canvas 和 toolbar 無縫融合 */
             margin-bottom: 0;
             /* ✅ 避免 canvas 和 toolbar 之間留白 */
+        }
+
+        /* 工具列排版 */
+        .toolbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #dcdcd0;
+            padding: 0.5rem 1rem;
+            border-radius: 0 0 10px 10px;
+            /* ✅ 只保留下半圓角 */
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 0 auto;
+            /* ✅ 置中對齊 */
         }
 
 
@@ -317,19 +343,6 @@
             background-color: #30d0ff;
         }
 
-        /* 工具列排版 */
-        .toolbar {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #dcdcd0;
-            padding: 0.5rem 1rem;
-            border-radius: 0 0 10px 10px;
-            /* ✅ 只保留下半圓角 */
-            margin-top: 0rem;
-            flex-wrap: wrap;
-            gap: 3rem;
-        }
 
         /* 筆觸大小 */
         .brush-size-selector,
@@ -357,7 +370,7 @@
             height: 30px;
             border-radius: 3px;
             cursor: pointer;
-            border: 2px solid transparent;
+            border: 3px solid transparent;
         }
 
         .color-button.active {
@@ -385,26 +398,6 @@
             opacity: 0.4;
         }
 
-        @media (max-width: 768px) {
-        .toolbar {
-
-            gap: 1rem;
-        }
-
-            .color-palette {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                /* 兩列兩排 */
-                gap: 0.5rem;
-                justify-content: center;
-            }
-
-
-            .dropup,
-            .btn-clear {
-                align-self: center;
-            }
-        }
 
         /* 下方按鈕 */
         .submit-section {
@@ -423,7 +416,7 @@
             letter-spacing: 0.4rem;
             margin-top: 3rem;
             margin-bottom: 2rem;
-            line-height: 2;
+            line-height: 1;
         }
 
         .final-image-container {
@@ -447,6 +440,115 @@
             gap: 1rem;
             margin-top: 2rem;
             margin-bottom: 3rem;
+        }
+
+        /* ✅ 自訂 modal 背景與文字樣式 */
+        #introModal .modal-content {
+            background-color: #212121;
+            /* ✅ 修改為想要的背景色 */
+            color: #ffffff;
+            /* 預設文字顏色，可被 <p> 覆蓋 */
+            border-radius: 12px;
+        }
+
+        #introModal .modal-body {
+            max-height: 60vh;
+            /* ✅ 高度限制避免爆版 */
+            overflow-y: auto;
+            /* ✅ 內容多可滾動 */
+            padding: 1.5rem;
+            line-height: 1.8;
+            /* ✅ 調整行距 */
+            text-align: left;
+        }
+
+        #introModal .modal-body p {
+            color: #cccccc;
+            /* ✅ 單獨調整文字顏色 */
+            margin-bottom: 1.2rem;
+            /* ✅ 每段間距 */
+        }
+
+#introModal .btn-close {
+    filter: invert(1); /* ✅ 白色圖示 */
+}
+
+        /* ✅ 手機直式排版：上下排、按鈕變小、字變小 */
+        @media (max-width: 768px) {
+            .toolbar {
+                gap: 0.5rem;
+            }
+
+            .color-button,
+            .dropup,
+            .btn-clear,
+            .fixed-button {
+                width: 60px;
+                height: 25px;
+            }
+
+            .color-palette {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.1rem;
+                justify-content: center;
+            }
+
+            .description {
+                font-size: 0.85rem;
+                line-height: 3;
+            }
+
+            .intro-text {
+                font-size: 0.75rem;
+            }
+        }
+
+        /* ✅ 電腦橫式排版：左右排，畫布佔 60vh */
+        @media (min-aspect-ratio: 4/3) {
+            .canvas-toolbar-wrapper {
+                flex-direction: row;
+                /* 改為左右排列 */
+                height: 60vh;
+                max-width: 60vh;
+                /* 保持1:1比例 */
+            }
+
+            #myCanvas {
+                height: 100%;
+                width: auto;
+                border-radius: 10px 0 0 10px;
+
+
+            }
+
+            .toolbar {
+                flex-direction: column;
+                /* 改為垂直排列 */
+                height: 100%;
+                width: auto;
+                border-radius: 0 10px 10px 0;
+                gap: 1.5rem;
+                padding: 10px;
+            }
+
+            .color-button {
+                width: 80px;
+                height: 50px;
+            }
+
+            .color-palette {
+                display: flex;
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .toolbar-divider {
+                width: 100%;
+                height: 1px;
+                /* 橫線 */
+                margin: 0.4rem 0;
+            }
         }
     </style>
 </head>
@@ -580,19 +682,28 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" style="color: black;" id="introModalLabel">完整簡介</h5>
+                        <h5 class="modal-title" style="" id="introModalLabel">完整簡介</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <!-- 這裡放你的完整簡介內容 -->
-                        <p style="color: black;">有些話難以言明，幸好人間有「儀式」，為那些無法言說的情感，提供了另一種溫柔的出口。
-                            在「水燈互動區」中，我們以互動投影裝置重現儀式的精神性。觀眾可掃描 QR Code，送出一盞數位水燈，將未曾說出的心念，悄悄託付，隨光漂流，緩緩前往空間的彼端。
-                            每一則水燈留言都是一段未竟的話語、一種對彼岸的凝視。觀者從送出水燈的那一刻起，便已參與了這場共享的儀式。而當你走到水燈終點，閱讀他人留下的訊息時，角色也隨著空間位置而悄然轉變，不再只是旁觀者，而是進入了「神靈」的視角，如觀音、如佛祖，成為那靜靜傾聽、默默承接眾生祈願的存在。
-                            這樣的設計靈感，來自台灣民間信仰中送水燈、燒王船的傳統儀式，也受到文學中對神靈角色的描寫啟發，如吳明益《睡眠的航線》中那位因傾聽而夜夜難眠的觀音菩薩。在此，傾聽不是被動的，而是一種深層的共鳴與承擔。
-                            展區同步展演 A_Root
-                            同根生的音樂作品〈水燈祭典〉，作為這場儀式的聲音軌跡。音樂從荒涼孤寂的低聲呢喃出發，逐漸推進至溫暖光明，如同病床上的人和陪病的家屬，在生與死之間搖晃，在沉默與轉生之間尋找出口。這首歌承載了一段真實的生命故事，也呼應著展區中每一則來自觀眾的託付與祈願。
-                            在這裡，互動成為儀式，水燈成為語言，而傾聽，即是一種回應。
+                        <p>有些話難以言明，幸好人間有「儀式」，為那些無法言說的情感，提供了另一種溫柔的出口。</p>
+
+                        <p>在「水燈互動區」中，我們以互動投影裝置重現儀式的精神性。觀眾可掃描 QR Code，送出一盞數位水燈，將未曾說出的心念，悄悄託付，隨光漂流，緩緩前往空間的彼端。</p>
+
+                        <p>每一則水燈留言都是一段未竟的話語、一種對彼岸的凝視。觀者從送出水燈的那一刻起，便已參與了這場共享的儀式。</p>
+
+                        <p>而當你走到水燈終點，閱讀他人留下的訊息時，角色也隨著空間位置而悄然轉變，不再只是旁觀者，而是進入了「神靈」的視角，如觀音、如佛祖，成為那靜靜傾聽、默默承接眾生祈願的存在。</p>
+
+                        <p>這樣的設計靈感，來自台灣民間信仰中送水燈、燒王船的傳統儀式，也受到文學中對神靈角色的描寫啟發，如吳明益《睡眠的航線》中那位因傾聽而夜夜難眠的觀音菩薩。在此，傾聽不是被動的，而是一種深層的共鳴與承擔。
                         </p>
+
+                        <p>展區同步展演 A_Root
+                            同根生的音樂作品〈水燈祭典〉，作為這場儀式的聲音軌跡。音樂從荒涼孤寂的低聲呢喃出發，逐漸推進至溫暖光明，如同病床上的人和陪病的家屬，在生與死之間搖晃，在沉默與轉生之間尋找出口。</p>
+
+                        <p>這首歌承載了一段真實的生命故事，也呼應著展區中每一則來自觀眾的託付與祈願。</p>
+
+                        <p>在這裡，互動成為儀式，水燈成為語言，而傾聽，即是一種回應。</p>
                     </div>
                 </div>
             </div>
@@ -634,6 +745,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+
         const canvas = document.getElementById("myCanvas");
         const ctx = canvas.getContext("2d");
         const buttons = document.querySelectorAll(".color-button");
