@@ -37,7 +37,7 @@
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    margin: 1rem 0 0.5rem;
+    margin: 60px 0rem 0rem 0rem;
 }
 
 .decorated-title h2 {
@@ -90,7 +90,7 @@
     /* 超出格線時收窄 */
     max-width: 100%;
     /* 防止寬度超出邊界 */
-    aspect-ratio: 1 / 2;
+    aspect-ratio: 1 / 1.5;
     /* 寬高比 1:2 */
     background: white;
     border: 1px solid #ccc;
