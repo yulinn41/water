@@ -1,12 +1,16 @@
 /* ---------- 第二畫面整體 ---------- */
 /* Screen2.css ↓ 最上方加入 */
 #screen2 {
-    display: none;
-    grid-template-rows: auto 1fr auto;
-    height: calc(100vh 60px);
-    /* 減去頂部 timeline 的 60px */
-    box-sizing: border-box;
-    padding: 0 1rem;
+  display: none;
+  grid-template-rows: auto 1fr auto;
+  height: calc(
+    100vh
+    - 60px
+    - env(safe-area-inset-top)
+    - env(safe-area-inset-bottom)
+  );
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 /* ---------- 第二畫面整體（只在 .active 時啟用） ---------- */

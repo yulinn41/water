@@ -7,18 +7,10 @@ html, body {
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
   box-sizing: border-box;
-}
-
-
-
-
-body {
-    font-family: "Microsoft JhengHei", sans-serif;
+      font-family: "Microsoft JhengHei", sans-serif;
     background-color: #f4f4f4;
     text-align: center;
 }
-/* 全局規則，放在 style.css 最前面 */
-
 /* 1. 基本隱藏 */
 .screen {
   display: none;
@@ -118,7 +110,7 @@ body {
 /* 標題 */
 .en-title {
     font-size: 1.3rem;
-    color: #ffffff;
+    color: #ff0000;
     margin-bottom: 0.3rem;
     z-index: 2;
     letter-spacing: 0.1em;
