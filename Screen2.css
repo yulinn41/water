@@ -4,8 +4,8 @@
   display: none;
   grid-template-rows: auto 1fr auto;
   height: calc(
-    100vh
-    - 60px
+    var(--vh, 1vh) * 100    /* 100 * 1% = 真實可視高度 */
+    - 60px                  /* timeline 高度 */
     - env(safe-area-inset-top)
     - env(safe-area-inset-bottom)
   );
@@ -19,8 +19,8 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
   height: calc(
-    100vh
-    - 60px
+    var(--vh, 1vh) * 100    /* 100 * 1% = 真實可視高度 */
+    - 60px                  /* timeline 高度 */
     - env(safe-area-inset-top)
     - env(safe-area-inset-bottom)
   );

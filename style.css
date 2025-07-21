@@ -1,3 +1,7 @@
+:root {
+  /* 預設 fallback 為 1vh */
+  --vh: 1vh;
+}
 
 /* style.css（或 Screen2.css 最前面） */
 html, body {
@@ -110,7 +114,7 @@ html, body {
 /* 標題 */
 .en-title {
     font-size: 1.3rem;
-    color: #ff0000;
+    color: #00ffb7;
     margin-bottom: 0.3rem;
     z-index: 2;
     letter-spacing: 0.1em;

@@ -1,3 +1,14 @@
+
+function setVh() {
+  // 取得當前視窗高度，乘以 1% 存入 --vh
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+window.addEventListener('load',  setVh);
+window.addEventListener('resize', setVh);
+
+
+
 /* --- WebSocket 連線設定（放檔案最前面） ------------------------------ */
 let ws;
 let unityConnected = false;
