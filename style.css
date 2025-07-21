@@ -9,20 +9,6 @@ html, body {
   box-sizing: border-box;
 }
 
-/* 第二畫面，全螢幕高度扣除 timeline 和 safe-area */
-#screen2.active {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  height: calc(
-    100vh
-    - 60px
-    - env(safe-area-inset-top)
-    - env(safe-area-inset-bottom)
-  );
-  padding: 0 1rem;
-  box-sizing: border-box;
-}
-
 
 
 

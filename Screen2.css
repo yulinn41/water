@@ -1,6 +1,5 @@
 /* ---------- 第二畫面整體 ---------- */
 /* Screen2.css ↓ 最上方加入 */
-/* Screen2.css ↓ 最上方加入 */
 #screen2 {
     display: none;
     grid-template-rows: auto 1fr auto;
@@ -11,14 +10,20 @@
 }
 
 /* ---------- 第二畫面整體（只在 .active 時啟用） ---------- */
+/* 第二畫面，全螢幕高度扣除 timeline 和 safe-area */
 #screen2.active {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    height: calc(100vh - 60px);
-    /* 減去頂部 timeline 的 60px */
-    box-sizing: border-box;
-    padding: 0 1rem;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: calc(
+    100vh
+    - 60px
+    - env(safe-area-inset-top)
+    - env(safe-area-inset-bottom)
+  );
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
+
 
 /* 標題區與按鈕區固定大小 */
 /* 2. 標題區：自動高度 */
