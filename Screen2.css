@@ -1,106 +1,100 @@
 /* ---------- 第二畫面整體 ---------- */
 #screen2 {
+  /* 預設隱藏，待 .active 時顯示 */
   display: none;
-  grid-template-rows: auto 1fr auto;
-  row-gap: 1rem;
-  height: calc(
-    var(--vh, 1vh) * 100    /* 100 * 1% = 真實可視高度 */
-    - env(safe-area-inset-top)
-    - env(safe-area-inset-bottom)
-  );
-  padding: 0 1rem;
-  box-sizing: border-box;
 }
-
-/* ----------只在 .active 時啟用） ---------- */
-/* 全螢幕高度扣除 safe-area */
 #screen2.active {
   display: grid;
+}
+#screen2,
+#screen2.active {
+  /* 3 列：標題、自適應畫布、按鈕 */
   grid-template-rows: auto 1fr auto;
   row-gap: 1rem;
+
+  /* 扣除安全區域的可視高度 */
   height: calc(
-    var(--vh, 1vh) * 100    /* 100 * 1% = 真實可視高度 */
+    var(--vh, 1vh) * 100
     - env(safe-area-inset-top)
     - env(safe-area-inset-bottom)
   );
   padding: 0 1rem;
   box-sizing: border-box;
+   background-color: #111;
 }
 
 
-/* 標題區與按鈕區固定大小 */
-/* 2. 標題區：自動高度 */
+
+/* ---------- 標題區 ---------- */
 .decorated-title {
-    grid-row: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin: 60px 0rem 0rem 0rem;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 60px;
 }
-
 .decorated-title h2 {
-    font-size: 1rem;
-    color: #30d0ff;
-    letter-spacing: .5rem;
+  font-size: 1rem;
+  color: #00D1D8;
+  letter-spacing: 0.5rem;
 }
-
 .decorated-title .line {
-    flex: 1;
-    height: 1px;
-    background-color: #30d0ff;
+  flex: 1;
+  height: 1px;
+  background-color: #00D1D8;
 }
 
-
-
-
-/* 這段一定要放在最上面，並且 selector 夠具體或加 !important */
-/* 必放最頂！確保 selector 具體或加 !important */
- .canvas-toolbar-wrapper {
-
-  /* 100% 高度由外層控制，寬度用 aspect-ratio 算 */
+/* ---------- 畫布 + 工具列容器 ---------- */
+.canvas-toolbar-wrapper {
+  /* 必放最頂，確保外層控制高度與置中 */
   height: 100% !important;
-
+  max-width: 100%;
   min-height: 0;
+  margin: 0 auto !important;
   box-sizing: border-box;
-  margin: 0 auto !important; /* 水平置中 */
 
-    /* inline‐grid 會根據內容自動撐寬，高度也自動撐開 */
-  display: inline-grid;
-  /* 兩列：第一列是 canvas，第二列是 toolbar */
+  display: grid;
   grid-template-rows: auto auto;
-
+  align-content: center;
+  justify-items: center;
 }
 
+
+/* ---------- Canvas 本體 ---------- */
 #myCanvas {
   grid-row: 1;
-  height: 100% !important;
-
-  aspect-ratio: 4 / 6;
+  align-self: end;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 2/3;
   background: white;
   border: 1px solid #ccc;
-  border-radius: 10px 10px 0 0;
+  border-radius: 2px 2px 0 0;
   display: block;
   min-width: 0;
   min-height: 0;
 }
 
+/* ---------- 工具列 ---------- */
 .toolbar {
-   display: grid;
-  grid-template-rows: auto auto; /* 上／下兩列 */
   grid-row: 2;
+  display: grid;
+  grid-template-rows: auto auto;
   width: 100%;
+  gap: 0.5rem;
+  padding: 0.5rem 0rem ;
+  background: #d4d4d4;
+  border-radius: 0 0 2px 2px;
+  box-sizing: border-box;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.5rem   1rem 0.5rem 1rem;
-  background: #dcdcd0;
-  border-radius: 0px;
-  box-sizing: border-box;
+ 
 }
 
-/* 第一列：水平排列顏色按鈕 */
-/* CSS */
+/* 顏色區：水平五格 */
 .toolbar-row-colors {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -108,22 +102,6 @@
   width: 100%;
 }
 
-/* 第二列：水平排列其它工具 */
-.toolbar-row-tools {
-  width: 100%;             /* 滿版寬度 */
-  display: flex;           /* Flex 排版 */
-  flex-wrap: wrap;         /* 換行 */
-  justify-content: center; /* 水平置中 */
-  align-items: center;     /* 垂直置中（若按鈕高度不同） */
-  gap: 0.5rem;             /* 按鈕間距 */
-  padding: 0.25rem 0;      /* 上下留白，可隨需求微調 */
-  box-sizing: border-box;
-}
-
-
-/* ---------- 顏色區---------- */
-
-/* color-button 塞滿格子且維持 1:1 比例 */
 .toolbar-row-colors .color-button {
   width: 100%;
   aspect-ratio: 1.5/0.75;
@@ -133,125 +111,129 @@
   box-sizing: border-box;
 }
 .toolbar-row-colors .color-button.active {
-  border-color: #30d0ff;
+  border-color: #00D1D8;
 }
 
-/* 筆刷尺寸下拉按鈕 */
-ixed-button {
-    padding: 0.3rem 0.6rem;
+/* 其他工具按鈕區 */
+.toolbar-row-tools {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
+  box-sizing: border-box;
+  flex-wrap: wrap;         /* 讓多個按鈕超出一行時自動換行 */
+  justify-content: center; /* 水平置中所有按鈕群 */
 }
 
-/* 下拉選單內 circle 統一用 .circle */
+
+
+/* ---------- 下方按鈕區 ---------- */
+.submit-section {
+  grid-row: 3;
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0 1rem;
+}
+.tool-btn.active {
+  border-color: #00D1D8;
+}
+.toolbar-divider {
+  width: 1px;
+  height: 30px;
+  background-color: #999;
+  opacity: 0.4;
+}
+
+
+/* ---------- 筆刷尺寸選擇 (Dropup) ---------- */
+.brush-size-selector,
+.btn-clear {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+
+/* 通用按鈕樣式 */
+.fixed-button,
+.tool-btn,
+.btn-clear {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  padding: 0 0.75rem;
+  background: #555555;
+  color: white;
+  text-align: center;
+  border-radius: 5%;
+  border: none;
+  box-sizing: border-box;
+}
+
+
+
+/* 未展開時按鈕最小寬度鎖定，寬度自動 */
+.fixed-button {
+  width: auto;
+  min-width: calc(5rem + 1.5rem + 0.5rem);
+  overflow: hidden;
+}
+
+/* focus & active 藍色外框 */
+.fixed-button:focus,
+.fixed-button:active {
+  outline: 1px solid #00D1D8 !important;
+  box-shadow: none;
+}
+
+/* 清除按鈕無框 */
+.btn-clear {
+  border: none;
+}
+
+
+/* ---------- 圓點樣式 ---------- */
 .circle {
   display: inline-block;
   border-radius: 50%;
-  background: currentColor;
+  background-color: #fff;
 }
-/* 透過 data-size 或 CSS selector 來設定不同大小 */
-.brush-option .circle {
-  width: 0.5rem;
-  height: 0.5rem;
-}
-.brush-option[data-size="20"] .circle { width: 1rem; height: 1rem; }
-.brush-option[data-size="40"] .circle { width: 1.5rem; height: 1.5rem; }
-.brush-option[data-size="20"] .circle { width: 2rem; height: 2rem; }
+/* 不同筆刷尺寸的圓點 */
+.brush-option[data-size="10"] .circle { width: 0.5rem;  height: 0.5rem;  }
+.brush-option[data-size="20"] .circle { width: 0.75rem; height: 0.75rem; }
+.brush-option[data-size="40"] .circle { width: 1rem;   height: 1rem;   }
+.brush-option[data-size="50"] .circle { width: 1.3rem; height: 1.3rem; }
 
-
-
-/* ---------- 畫布＋工具列彈性區 ---------- */
-
-
-
-
-/* 6. 下方按鈕區：自動高度 */
-.submit-section {
-    grid-row: 3;
-    display: flex;
-    justify-content: center;
-    margin: 0.5rem 0 1rem;
-}
-
-/*兩個案紐*/
-/* 按鈕大小固定或用彈性百分比都可以 */
-
-
-/* 橡皮擦按鈕也套用同樣的外框 */
-.tool-btn.active {
-    border-color: #30d0ff;
-}
-
-
-/* 下拉 */
-.dropdown-menu {
-    width: 40px;
-}
-
-.dropdown-item {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 !important;
-}
-
-
-
-
-
-
-
-.index2 {
-    position: relative;
-    z-index: 2;
-}
-
-
-
-/* 筆觸大小 */
-.brush-size-selector,
-.btn-clear {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-}
-
-.size-options .circle {
-    border-radius: 50%;
-    background: #000;
-    cursor: pointer;
-}
-
+/* 當前選中樣式 */
 .current {
-    border: 2px solid #000;
+  border: 2px solid #000;
 }
 
 
+/* ---------- 下拉選單樣式 ---------- */
+.dropup .dropdown-menu {
+  /* 還原預設寬度 */
+  width: 100%;
+  min-width: unset !important;
+  background-color: #555555 !important;
+}
 
-.dropup,
- .tool-btn,
-.btn-clear {
-  flex: 0 0 auto;           /* 不放大、不縮小 */
-  display: inline-flex;     /* 讓內部內容置中 */
+.dropup .dropdown-item {
+  /* 選單項目置中 */
+  padding: 0.4rem 0 !important;
+  display: flex;
   align-items: center;
   justify-content: center;
-  height: 2rem;           /* 統一高度，可依需求調整 */
-  padding: 0 0.75rem;       /* 左右內距 */
-  box-sizing: border-box;
-  background: #555555;
- color: white;
- text-align: center;
- border-radius: 5%;
-  border: none; 
-}
-/* 清除按鈕 */
-.btn-clear {  
-    border: none;
+
 }
 
-.toolbar-divider {
-    width: 1px;
-    height: 30px;
-    background-color: #999;
-    opacity: 0.4;
-  
+/* hover / focus 反白效果 */
+.dropup .dropdown-item:hover,
+.dropup .dropdown-item:focus {
+  background-color: #222 !important;
 }
