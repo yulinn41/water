@@ -183,13 +183,14 @@ function refreshCanvasDisplay() {
 }
 
 // Switch screen: Add/remove "active" class
-// Switch screen: Add/remove "active" class
+// ... (script.js 的其餘部分不變) ...
+
+// **修正後的 setActiveScreen 函數**
 function setActiveScreen(n) {
   // Hide all screens
   Object.values(screens).forEach(s => {
     s.classList.remove("active");
-    // **重要：明確設置 display: none 給非活躍的畫面**
-    s.style.display = 'none'; // 新增這行！
+    s.style.display = 'none'; // 確保非活躍畫面被隱藏
 
     // 清除可能由 orientation change 設置的 inline style
     s.style.visibility = '';
@@ -202,14 +203,26 @@ function setActiveScreen(n) {
   // Show the current one
   if (screens[n]) {
     screens[n].classList.add("active");
-    // **重要：清除活躍畫面的 display inline style，讓 CSS 規則生效**
-    screens[n].style.display = ''; // 新增這行！
+    screens[n].style.display = ''; // 清除 inline display，讓 CSS 規則生效
+
+    // **新增：如果活躍畫面是 screen1，強制重啟 description 的動畫**
+    if (n === 1) {
+      const descriptionElement = screens[n].querySelector('.animated-description');
+      if (descriptionElement) {
+        // 移除動畫類別
+        descriptionElement.classList.remove('animated-description');
+        // 強制瀏覽器重排 (reflow) - 這是確保動畫重播的關鍵
+        // 透過讀取元素的 offsetWidth 屬性來觸發重排
+        void descriptionElement.offsetWidth; // 注意 `void` 操作符，它確保這行語句只執行副作用，不返回任何值
+        // 重新添加動畫類別
+        descriptionElement.classList.add('animated-description');
+      }
+    }
     
     // If it's screen2, trigger canvas adjustment and redraw
     if (n === 2) {
-      // 保持 Canvas 內部寬高固定 500x750，所以這裡只需重繪
- refreshCanvasDisplay(); // 使用新的函數名稱    
- }
+      refreshCanvasDisplay();
+    }
   }
 
   // Timeline display logic also changes class
@@ -232,8 +245,6 @@ function setActiveScreen(n) {
   }
 }
 
-
-// ... (之前的代碼) ...
 
 // **修正後的 handleOrientationChange 函數**
 function handleOrientationChange() {
