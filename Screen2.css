@@ -1,8 +1,5 @@
 /* ---------- 第二畫面整體 ---------- */
-#screen2 {
-  /* 預設隱藏，待 .active 時顯示 */
-  display: none;
-}
+
 #screen2.active {
   display: grid;
 }
@@ -53,9 +50,9 @@
   min-height: 0;
   margin: 0 auto !important;
   box-sizing: border-box;
-
+ width: min(80vw, 500px);    /* 手機 90% 螢幕寬／電腦最大 600px */
   display: grid;
-grid-template-rows: 1fr auto;
+  grid-template-rows: auto auto;
   align-content: center;
   justify-items: center;
 }
@@ -65,7 +62,7 @@ grid-template-rows: 1fr auto;
 #myCanvas {
   grid-row: 1;
   align-self: end;
-  width: auto;
+  width: 100%;
   height: auto;
   max-width: 100%;
   max-height: 100%;
@@ -75,10 +72,7 @@ grid-template-rows: 1fr auto;
   border-radius: 2px 2px 0 0;
   display: block;
   min-width: 0;
-min-height: calc(100% - var(--toolbar-height));
-}
-:root {
-  --toolbar-height: 4rem; /* 先量好 .toolbar 的實際高度 */
+  min-height: 0;
 }
 
 /* ---------- 工具列 ---------- */

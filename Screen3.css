@@ -1,8 +1,4 @@
 /* ---------- 第二畫面整體 ---------- */
-#screenˇ {
-    /* 預設隱藏，待 .active 時顯示 */
-    display: none;
-}
 
 #screen3.active {
     display: grid;
@@ -59,7 +55,7 @@
     display: block;
     /* 移除預設 inline 間隙 */
     border-radius: 5%;
-    background-color: #d4d4d4;
+    background-color: #ffffff;
 }
 
 .button-group {

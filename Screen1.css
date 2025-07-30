@@ -20,6 +20,22 @@ html, body {
 
 
 
+/* 當偵測到橫向，隱藏所有 .screen，並顯示提示 */
+@media screen and (orientation: landscape) {
+  .screen {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    /* 確保元素不可點擊，防止幽靈點擊 */
+    pointer-events: none !important;
+    /* 讓元素在佈局中保持其原始尺寸，但不可見 */
+    height: 0 !important; /* 確保隱藏時不佔用高度 */
+    overflow: hidden !important;
+    transition: none !important; /* 避免隱藏時有過渡效果 */
+
+  }
+}
+
+
 .screen {
   display: none;
 }
@@ -68,18 +84,18 @@ html, body {
 
 .description {
     font-size: 1rem;
-    color: #d80000;
+    color: #00D1D8;
     line-height: 3rem;
     letter-spacing: 0.2em;
     margin-bottom: 2.5rem;
     z-index: 2;
 }
 /* 手機／窄版面時，字距改小、字行也稍微壓縮 */
-@media (max-width: 400px) {
+@media (max-width: 410px) {
   .description {
-    font-size: 0.5rem;
+    font-size: 0.9rem;
     line-height: 2.4rem;
-    letter-spacing: 0em;
+    letter-spacing: 0.05em;
   }
 }
 .animated-description {
